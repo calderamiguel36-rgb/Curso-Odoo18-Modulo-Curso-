@@ -1,0 +1,56 @@
+<odoo>
+  <data>
+    <!-- explicit tree view definition -->
+
+    <record model="ir.ui.view" id="covid__crud.list">
+      <field name="name">covid__crud list</field>
+      <field name="model">covid_crud</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="source"/>
+          <field name="date"/>
+          <field name="country_id"/>
+          <field name="infected"/>
+          <field name="recovered"/>
+          <field name="deceased" />
+        </list>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+    <record model="ir.ui.view" id="covid__crud.form">
+      <field name="name">covid__crud tree</field>
+      <field name="model">covid_crud</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="source"/>
+            <field name="date"/>
+            <field name="country_id"/>
+            <field name="infected"/>
+            <field name="recovered"/>
+            <field name="deceased" />
+            <field name='total_infected'/>
+          </group>          
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="covid__crud.action_window">
+      <field name="name">Registro Covid-19</field>
+      <field name="res_model">covid_crud</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Covid-19" id="covid__crud.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="covid__crud.menu_1" parent="covid__crud.menu_root" action='covid__crud.action_window'/>
+
+  </data>
+</odoo>
