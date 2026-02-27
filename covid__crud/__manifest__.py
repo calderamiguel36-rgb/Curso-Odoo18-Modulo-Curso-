@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "covid_CRUD",
+    'name': "Covid-19_CRUD",
 
     'summary': "Short (1 phrase/line) summary of the module's purpose",
 
@@ -25,6 +25,12 @@ Long description of module's purpose
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'report/daily_external_report.xml',
+        'report/daily_internal_report.xml',
+        'report/dates_external_report.xml',
+        'report/dates_internal_report.xml',
+        'wizard/date_report.xml',
+        
     ],
     # only loaded in demonstration mode
     'demo': [

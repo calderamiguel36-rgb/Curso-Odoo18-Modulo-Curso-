@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_dailyReportExternallayout" model="ir.actions.report">
+        <field name="name">Daily External Report</field>
+        <field name="model">covid_crud</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">covid__crud.dailyReportExternallayout</field>
+        <field name="report_file">covid__crud.dailyReportExternallayout</field>
+        <field name="print_report_name">'Exeport %s %s' % (object.date, object.country_id.name)</field>
+        <field name="binding_model_id" ref="model_covid_crud"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="dailyReportExternallayout">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size:18px">
+                        <div class="row">
+                            <div class="col-12" style="text-align: center;"> <h2>Reporte COVID-19 <span t-field="o.date" /></h2>
+                                <h4>Versión Registro Manual</h4>
+                                <h5>Fuente <span t-field="o.source" /></h5>
+                                <h5>País <span t-field="o.country_id.name" /></h5> </div>
+                        </div>
+                        
+                        <div class="row mt-2"> <div class="col-12">
+                                Infected: <span t-field="o.infected" /> 
+                                <span t-esc="o.set_percentage_infected()" /> %
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-12" style="text-align: center;">
+                                Total accumulated up to the date of registration.
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                Total Infected: <span t-field="o.total_infected" />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

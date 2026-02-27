@@ -1,56 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
-    <!-- explicit tree view definition -->
-
-    <record model="ir.ui.view" id="covid__crud.list">
-      <field name="name">covid__crud list</field>
-      <field name="model">covid_crud</field>
-      <field name="arch" type="xml">
-        <list>
-          <field name="source"/>
-          <field name="date"/>
-          <field name="country_id"/>
-          <field name="infected"/>
-          <field name="recovered"/>
-          <field name="deceased" />
-        </list>
-      </field>
+    <record id="view_covid_crud_list" model="ir.ui.view">
+        <field name="name">covid_crud.list</field>
+        <field name="model">covid_crud</field>
+        <field name="arch" type="xml">
+            <list decoration-info="infected > 0" decoration-danger="deceased > 0">
+                <field name="date" widget="date"/>
+                <field name="country_id" widget="many2one_avatar"/>
+                <field name="source"/>
+                <field name="infected" sum="Total Infected"/>
+                <field name="recovered" sum="Total Recovered"/>
+                <field name="deceased" sum="Total Deceased"/>
+            </list>
+        </field>
     </record>
 
-    <!-- explicit form view definition -->
-    <record model="ir.ui.view" id="covid__crud.form">
-      <field name="name">covid__crud tree</field>
-      <field name="model">covid_crud</field>
-      <field name="arch" type="xml">
-        <form>
-          <group>
-            <field name="source"/>
-            <field name="date"/>
-            <field name="country_id"/>
-            <field name="infected"/>
-            <field name="recovered"/>
-            <field name="deceased" />
-            <field name='total_infected'/>
-          </group>          
-        </form>
-      </field>
+    <record id="view_covid_crud_form" model="ir.ui.view">
+        <field name="name">covid_crud.form</field>
+        <field name="model">covid_crud</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="country_id" placeholder="Seleccionar País"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información General">
+                            <field name="date"/>
+                            <field name="source"/>
+                        </group>
+                        <group string="Estadísticas del Día">
+                            <field name="infected"/>
+                            <field name="recovered"/>
+                            <field name="deceased"/>
+                            <field name="total_infected" readonly="1"/>
+                            <field name="total_recovered" readonly="1"/>
+                            <field name="total_deceased" readonly="1"/>
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
     </record>
 
-    <!-- actions opening views on models -->
-
-    <record model="ir.actions.act_window" id="covid__crud.action_window">
-      <field name="name">Registro Covid-19</field>
-      <field name="res_model">covid_crud</field>
-      <field name="view_mode">list,form</field>
+    <record id="view_covid_crud_calendar" model="ir.ui.view">
+        <field name="name">covid_crud.calendar</field>
+        <field name="model">covid_crud</field>
+        <field name="arch" type="xml">
+            <calendar string="Covid 19" date_start="date" color="country_id" mode="month">
+                <field name="country_id" filters="1"/>
+                <field name="infected"/>
+            </calendar>
+        </field>
     </record>
 
-    <!-- Top menu item -->
+    <record id="view_covid_crud_graph" model="ir.ui.view">
+        <field name="name">covid_crud.graph</field>
+        <field name="model">covid_crud</field>
+        <field name="arch" type="xml">
+            <graph string="Covid-19" type="bar" sample="1">
+                <field name="country_id"/>
+                <field name="infected" type="measure"/>
+            </graph>
+        </field>
+    </record>
 
-    <menuitem name="Covid-19" id="covid__crud.menu_root"/>
+    <record id="view_covid_crud_pivot" model="ir.ui.view">
+        <field name="name">covid_crud.pivot</field>
+        <field name="model">covid_crud</field>
+        <field name="arch" type="xml">
+            <pivot string="Análisis Covid-19" sample="1">
+                <field name="date" type="row"/>
+                <field name="country_id" type="col"/>
+                <field name="infected" type="measure"/>
+            </pivot>
+        </field>
+    </record>
 
-    <!-- menu categories -->
+    <record id="action_covid_crud" model="ir.actions.act_window">
+        <field name="name">Registro Covid-19</field>
+        <field name="res_model">covid_crud</field>
+        <field name="view_mode">list,form,calendar,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea el primer registro de estadísticas Covid-19
+            </p>
+        </field>
+    </record>
 
-    <menuitem name="Menu 1" id="covid__crud.menu_1" parent="covid__crud.menu_root" action='covid__crud.action_window'/>
+    <menuitem id="covid__crud_menu_root" name="Covid-19" sequence="10"/>
 
-  </data>
+    <menuitem id="covid_crud_main_menu" 
+            name="Estadísticas" 
+            parent="covid__crud_menu_root" 
+            action="action_covid_crud"
+            sequence="10"/>
 </odoo>

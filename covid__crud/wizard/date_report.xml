@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_date_report_wizard_form" model="ir.ui.view">
+        <field name="name">covid_crud.date.report.wizard.form</field>
+        <field name="model">covid__crud.date.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Report Between Date">
+                <div class="alert alert-info" role="alert">
+                    Generate PDF format report between a date range and by country. 
+                    If you do not select a country, all will be reported.
+                </div>
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <separator string="Countries" />
+                <field name="country_ids" widget="many2many_tags" placeholder="Select countries..."/> 
+                
+                <footer>
+                    <button name="print_report" string="Print Report" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_date_report_wizard" model="ir.actions.act_window">
+        <field name="name">Report Between Date</field>
+        <field name="res_model">covid__crud.date.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    
+    <menuitem 
+        id="date_report_wizard_menu" 
+        name="Report Between Date" 
+        parent="covid__crud_menu_root"
+        action="action_view_date_report_wizard"
+        sequence="20"/>
+</odoo>
