@@ -26,7 +26,7 @@ class DateReportWizard(models.TransientModel):
             ('date','<',self.end_date)
             ]
         if self.country_ids:
-            domain.append('country_id','in',self.country_ids.ids)
+            domain.append(('country_id','in',self.country_ids.ids))
         covidField=[
             'source',
             'date',
@@ -34,6 +34,9 @@ class DateReportWizard(models.TransientModel):
             'infected',
             'recovered',
             'deceased',
+            'total_infected',
+            'total_recovered',
+            'total_deceased',
             ]
         covidRecords=Covid19.search_read(domain,covidField)
         data={

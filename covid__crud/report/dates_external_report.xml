@@ -28,6 +28,9 @@
                                         <th scope="col">Infected</th>
                                         <th scope="col">Recovered</th>
                                         <th scope="col">Deceased</th>
+                                        <th scope="col">Total Infected</th>
+                                        <th scope="col">Total Recovered</th>
+                                        <th scope="col">Total Deceased</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,6 +41,10 @@
                                             <td><t t-esc="record['infected']"/></td>
                                             <td><t t-esc="record['recovered']"/></td>
                                             <td><t t-esc="record['deceased']"/></td>
+                                            <td><t t-esc="record['total_infected']"/></td>
+                                            <td><t t-esc="record['total_recovered']"/></td>
+                                            <td><t t-esc="record['total_deceased']"/></td>
+                                            
                                         </tr>
                                     </t>
                                 </tbody>

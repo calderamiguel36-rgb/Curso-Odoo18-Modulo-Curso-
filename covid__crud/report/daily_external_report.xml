@@ -28,6 +28,18 @@
                                 <span t-esc="o.set_percentage_infected()" /> %
                             </div>
                         </div>
+                        
+                        <div class="row mt-2"> <div class="col-12">
+                                Recovered: <span t-field="o.recovered" /> 
+                                <span t-esc="o.set_percentage_recovered()" /> %
+                            </div>
+                        </div>
+
+                        <div class="row mt-2"> <div class="col-12">
+                                Deceased: <span t-field="o.deceased" /> 
+                                <span t-esc="o.set_percentage_deceased()" /> %
+                            </div>
+                        </div>
 
                         <div class="row mt-2">
                             <div class="col-12" style="text-align: center;">
